@@ -1,6 +1,6 @@
 Name:           maven-plugin-testing
 Version:        1.2
-Release:        9
+Release:        11
 Summary:        Maven Plugin Testing
 
 Group:          Development/Java
