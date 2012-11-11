@@ -1,0 +1,20 @@
+--- maven-plugin-testing-harness/src/main/java/org/apache/maven/plugin/testing/stubs/ArtifactStub.java.sav2	2008-03-18 13:39:00.000000000 +0200
++++ maven-plugin-testing-harness/src/main/java/org/apache/maven/plugin/testing/stubs/ArtifactStub.java	2011-02-10 19:51:44.810981152 +0200
+@@ -62,7 +62,7 @@ public class ArtifactStub
+      *
+      * @see java.lang.Comparable#compareTo(java.lang.Object)
+      */
+-    public int compareTo( Object object )
++    public int compareTo( Artifact object )
+     {
+         return 0;
+     }
+@@ -497,4 +497,8 @@ public class ArtifactStub
+             sb.append( getClassifier() );
+         }
+     }
++
++    public ArtifactMetadata getMetadata(Class metadataClass) {
++       return null;
++    }
+ }

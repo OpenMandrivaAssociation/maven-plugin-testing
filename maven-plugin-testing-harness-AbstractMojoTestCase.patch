@@ -1,0 +1,11 @@
+--- maven-plugin-testing-harness/src/main/java/org/apache/maven/plugin/testing/AbstractMojoTestCase.java.orig	2010-09-20 20:40:23.409198838 +0800
++++ maven-plugin-testing-harness/src/main/java/org/apache/maven/plugin/testing/AbstractMojoTestCase.java	2010-09-20 20:41:24.184959518 +0800
+@@ -181,7 +181,7 @@
+ 
+         Mojo mojo = (Mojo) lookup( Mojo.ROLE, groupId + ":" + artifactId + ":" + version + ":" + goal );
+ 
+-        Log mojoLogger = new DefaultLog( getContainer().getLoggerManager().getLoggerForComponent( Mojo.ROLE ) );
++        Log mojoLogger = new DefaultLog(((org.codehaus.plexus.MutablePlexusContainer)getContainer()).getLoggerManager().getLoggerForComponent( Mojo.ROLE ) );
+ 
+         mojo.setLog( mojoLogger );
+ 
