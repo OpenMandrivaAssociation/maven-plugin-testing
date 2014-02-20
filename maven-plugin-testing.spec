@@ -1,7 +1,7 @@
 %{?_javapackages_macros:%_javapackages_macros}
 Name:           maven-plugin-testing
 Version:        2.1
-Release:        9.0%{?dist}
+Release:        9.1%{?dist}
 Summary:        Maven Plugin Testing
 License:        ASL 2.0
 URL:            http://maven.apache.org/plugin-testing/
