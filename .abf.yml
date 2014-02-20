@@ -1,2 +1,7 @@
 sources:
   maven-plugin-testing-2.1-source-release.zip: cf06ddd959bdad0c2b956c3291c0035dab7af5eb
+  maven-plugin-testing-2.1-9.0-omv2014.1.noarch.rpm: 6a4d6b8fca8bb3844b6d026f5b900ca44b832f15
+  maven-plugin-testing-harness-2.1-9.0-omv2014.1.noarch.rpm: 3e9665d7be624990105d1904478d7a6ad334f01f
+  maven-plugin-testing-javadoc-2.1-9.0-omv2014.1.noarch.rpm: 91c81f34560b3cf7b63533f94bf96f446cf6d593
+  maven-plugin-testing-tools-2.1-9.0-omv2014.1.noarch.rpm: ccb953479afe19e30fa4b80c51788a1f0ba47ba6
+  maven-test-tools-2.1-9.0-omv2014.1.noarch.rpm: 749dae5ec9cc44f000c4850cca468bb5efb76a1f

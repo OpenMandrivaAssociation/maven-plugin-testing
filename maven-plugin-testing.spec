@@ -1,174 +1,221 @@
-%{?_javapackages_macros:%_javapackages_macros}
-Name:           maven-plugin-testing
-Version:        2.1
-Release:        9.0%{?dist}
-Summary:        Maven Plugin Testing
-License:        ASL 2.0
-URL:            http://maven.apache.org/plugin-testing/
-Source0:        http://repo1.maven.org/maven2/org/apache/maven/plugin-testing/%{name}/%{version}/%{name}-%{version}-source-release.zip
-Patch0:         0001-Port-to-Maven-3.1.0.patch
-BuildArch: noarch
 
-BuildRequires: easymock3
-BuildRequires: junit
-BuildRequires: java-devel
-BuildRequires: maven-local
-BuildRequires: maven-resources-plugin
-BuildRequires: maven-source-plugin
-BuildRequires: plexus-containers-component-metadata
-BuildRequires: maven-javadoc-plugin
-BuildRequires: maven-doxia-sitetools
-BuildRequires: maven-reporting-impl
+%undefine _compress
+%undefine _extension
+%global _duplicate_files_terminate_build 0
+%global _files_listed_twice_terminate_build 0
+%global _unpackaged_files_terminate_build 0
+%global _nonzero_exit_pkgcheck_terminate_build 0
+%global _use_internal_dependency_generator 0
+%global __find_requires /bin/sed -e 's/.*//'
+%global __find_provides /bin/sed -e 's/.*//'
+
+Name:		maven-plugin-testing
+Version:	2.1
+Release:	9.0
+License:	GPLv3+
+Source0:	maven-plugin-testing-2.1-9.0-omv2014.1.noarch.rpm
+Source1:	maven-plugin-testing-harness-2.1-9.0-omv2014.1.noarch.rpm
+Source2:	maven-plugin-testing-javadoc-2.1-9.0-omv2014.1.noarch.rpm
+Source3:	maven-plugin-testing-tools-2.1-9.0-omv2014.1.noarch.rpm
+
+URL:		https://abf.rosalinux.ru/openmandriva/maven-plugin-testing
+BuildArch:	noarch
+Summary:	maven-plugin-testing bootstrap version
+Requires:	javapackages-bootstrap
+Requires:	jpackage-utils
+Requires:	mvn(junit:junit)
+Requires:	mvn(org.apache.maven.plugins:maven-site-plugin)
+Requires:	mvn(org.apache.maven:maven-parent)
+Provides:	maven-plugin-testing = 2.1-9.0:2014.1
+Provides:	mvn(org.apache.maven.plugin-testing:maven-plugin-testing) = 2.1
+Provides:	mvn(org.apache.maven.plugin-testing:maven-plugin-testing:pom:) = 2.1
+Provides:	mvn(org.apache.maven.shared:maven-plugin-testing) = 2.1
+Provides:	mvn(org.apache.maven.shared:maven-plugin-testing:pom:) = 2.1
 
 %description
-The Maven Plugin Testing contains the necessary modules
-to be able to test Maven Plugins.
+maven-plugin-testing bootstrap version.
 
-%package javadoc
-Summary:        Javadoc for %{name}
+%files
+/usr/share/doc/maven-plugin-testing
+/usr/share/doc/maven-plugin-testing/LICENSE
+/usr/share/doc/maven-plugin-testing/NOTICE
+/usr/share/maven-fragments/maven-plugin-testing-maven-plugin-testing.xml
+/usr/share/maven-poms/JPP.maven-plugin-testing-maven-plugin-testing.pom
 
-%description javadoc
-API documentation for %{name}.
+#------------------------------------------------------------------------
+%package	-n maven-plugin-testing-harness
+Version:	2.1
+Release:	9.0
+Summary:	maven-plugin-testing-harness bootstrap version
+Requires:	javapackages-bootstrap
+Requires:	java >= 1.5
+Requires:	jpackage-utils
+Requires:	mvn(org.codehaus.plexus:plexus-archiver)
+Provides:	maven-plugin-testing-harness = 2.1-9.0:2014.1
+Provides:	maven-shared-plugin-testing-harness = 1:2.1-9.0
+Provides:	mvn(org.apache.maven.plugin-testing:maven-plugin-testing-harness) = 2.1
+Provides:	mvn(org.apache.maven.shared:maven-plugin-testing-harness) = 2.1
+Obsoletes:	maven-shared-plugin-testing-harness <= 0:1.2
 
-%package harness
-Summary: Maven Plugin Testing Mechanism
-BuildRequires: maven-surefire-provider-junit4
-Obsoletes: maven-shared-plugin-testing-harness <= 0:1.2
-Provides: maven-shared-plugin-testing-harness = 1:%{version}-%{release}
+%description	-n maven-plugin-testing-harness
+maven-plugin-testing-harness bootstrap version.
 
-%description harness
-The Maven Plugin Testing Harness provides mechanisms to manage tests on Mojo.
+%files		-n maven-plugin-testing-harness
+/usr/share/java/maven-plugin-testing/maven-plugin-testing-harness.jar
+/usr/share/maven-effective-poms/JPP.maven-plugin-testing-maven-plugin-testing-harness.pom
+/usr/share/maven-fragments/maven-plugin-testing-maven-plugin-testing-harness.xml
+/usr/share/maven-poms/JPP.maven-plugin-testing-maven-plugin-testing-harness.pom
 
-%package tools
-Summary: Maven Plugin Testing Tools
-Obsoletes: maven-shared-plugin-testing-tools <= 0:%{version}-%{release}
-Provides: maven-shared-plugin-testing-tools = 1:%{version}-%{release}
+#------------------------------------------------------------------------
+%package	-n maven-plugin-testing-javadoc
+Version:	2.1
+Release:	9.0
+Summary:	maven-plugin-testing-javadoc bootstrap version
+Requires:	javapackages-bootstrap
+Requires:	jpackage-utils
+Provides:	maven-plugin-testing-javadoc = 2.1-9.0:2014.1
 
-%description tools
-A set of useful tools to help the Maven Plugin testing.
+%description	-n maven-plugin-testing-javadoc
+maven-plugin-testing-javadoc bootstrap version.
 
-%package -n maven-test-tools
-Summary: Maven Testing Tool
-Obsoletes: maven-shared-test-tools <= 0:%{version}-%{release}
-Provides: maven-shared-test-tools = 1:%{version}-%{release}
+%files		-n maven-plugin-testing-javadoc
+/usr/share/doc/maven-plugin-testing-javadoc
+/usr/share/doc/maven-plugin-testing-javadoc/LICENSE
+/usr/share/doc/maven-plugin-testing-javadoc/NOTICE
+/usr/share/javadoc/maven-plugin-testing
+/usr/share/javadoc/maven-plugin-testing/allclasses-frame.html
+/usr/share/javadoc/maven-plugin-testing/allclasses-noframe.html
+/usr/share/javadoc/maven-plugin-testing/constant-values.html
+/usr/share/javadoc/maven-plugin-testing/deprecated-list.html
+/usr/share/javadoc/maven-plugin-testing/help-doc.html
+/usr/share/javadoc/maven-plugin-testing/index-all.html
+/usr/share/javadoc/maven-plugin-testing/index.html
+/usr/share/javadoc/maven-plugin-testing/javadoc.sh
+/usr/share/javadoc/maven-plugin-testing/options
+/usr/share/javadoc/maven-plugin-testing/org
+/usr/share/javadoc/maven-plugin-testing/org/apache
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/plugin
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/plugin/testing
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/plugin/testing/AbstractMojoTestCase.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/plugin/testing/ArtifactStubFactory.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/plugin/testing/ConfigurationException.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/plugin/testing/ResolverExpressionEvaluatorStub.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/plugin/testing/SilentLog.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/plugin/testing/class-use
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/plugin/testing/class-use/AbstractMojoTestCase.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/plugin/testing/class-use/ArtifactStubFactory.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/plugin/testing/class-use/ConfigurationException.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/plugin/testing/class-use/ResolverExpressionEvaluatorStub.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/plugin/testing/class-use/SilentLog.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/plugin/testing/package-frame.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/plugin/testing/package-summary.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/plugin/testing/package-tree.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/plugin/testing/package-use.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/plugin/testing/stubs
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/plugin/testing/stubs/ArtifactStub.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/plugin/testing/stubs/DefaultArtifactHandlerStub.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/plugin/testing/stubs/MavenProjectStub.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/plugin/testing/stubs/StubArtifactCollector.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/plugin/testing/stubs/StubArtifactRepository.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/plugin/testing/stubs/StubArtifactResolver.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/plugin/testing/stubs/class-use
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/plugin/testing/stubs/class-use/ArtifactStub.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/plugin/testing/stubs/class-use/DefaultArtifactHandlerStub.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/plugin/testing/stubs/class-use/MavenProjectStub.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/plugin/testing/stubs/class-use/StubArtifactCollector.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/plugin/testing/stubs/class-use/StubArtifactRepository.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/plugin/testing/stubs/class-use/StubArtifactResolver.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/plugin/testing/stubs/package-frame.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/plugin/testing/stubs/package-summary.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/plugin/testing/stubs/package-tree.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/plugin/testing/stubs/package-use.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/shared
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/shared/test
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/shared/test/plugin
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/shared/test/plugin/BuildTool.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/shared/test/plugin/ComponentTestTool.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/shared/test/plugin/PluginTestTool.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/shared/test/plugin/ProjectTool.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/shared/test/plugin/RepositoryTool.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/shared/test/plugin/TestToolsException.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/shared/test/plugin/class-use
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/shared/test/plugin/class-use/BuildTool.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/shared/test/plugin/class-use/ComponentTestTool.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/shared/test/plugin/class-use/PluginTestTool.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/shared/test/plugin/class-use/ProjectTool.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/shared/test/plugin/class-use/RepositoryTool.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/shared/test/plugin/class-use/TestToolsException.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/shared/test/plugin/package-frame.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/shared/test/plugin/package-summary.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/shared/test/plugin/package-tree.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/shared/test/plugin/package-use.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/shared/tools
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/shared/tools/easymock
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/shared/tools/easymock/MockManager.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/shared/tools/easymock/TestFileManager.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/shared/tools/easymock/TestUtils.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/shared/tools/easymock/class-use
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/shared/tools/easymock/class-use/MockManager.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/shared/tools/easymock/class-use/TestFileManager.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/shared/tools/easymock/class-use/TestUtils.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/shared/tools/easymock/package-frame.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/shared/tools/easymock/package-summary.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/shared/tools/easymock/package-tree.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/shared/tools/easymock/package-use.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/shared/tools/test
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/shared/tools/test/ReflectiveSetter.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/shared/tools/test/class-use
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/shared/tools/test/class-use/ReflectiveSetter.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/shared/tools/test/package-frame.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/shared/tools/test/package-summary.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/shared/tools/test/package-tree.html
+/usr/share/javadoc/maven-plugin-testing/org/apache/maven/shared/tools/test/package-use.html
+/usr/share/javadoc/maven-plugin-testing/overview-frame.html
+/usr/share/javadoc/maven-plugin-testing/overview-summary.html
+/usr/share/javadoc/maven-plugin-testing/overview-tree.html
+/usr/share/javadoc/maven-plugin-testing/package-list
+/usr/share/javadoc/maven-plugin-testing/packages
+/usr/share/javadoc/maven-plugin-testing/resources
+/usr/share/javadoc/maven-plugin-testing/resources/background.gif
+/usr/share/javadoc/maven-plugin-testing/resources/tab.gif
+/usr/share/javadoc/maven-plugin-testing/resources/titlebar.gif
+/usr/share/javadoc/maven-plugin-testing/resources/titlebar_end.gif
+/usr/share/javadoc/maven-plugin-testing/serialized-form.html
+/usr/share/javadoc/maven-plugin-testing/stylesheet.css
 
-%description -n maven-test-tools
-Framework to test Maven Plugins with Easymock objects.
+#------------------------------------------------------------------------
+%package	-n maven-plugin-testing-tools
+Version:	2.1
+Release:	9.0
+Summary:	maven-plugin-testing-tools bootstrap version
+Requires:	javapackages-bootstrap
+Requires:	java >= 1.5
+Requires:	jpackage-utils
+Requires:	mvn(org.apache.maven.shared:maven-invoker)
+Provides:	maven-plugin-testing-tools = 2.1-9.0:2014.1
+Provides:	maven-shared-plugin-testing-tools = 1:2.1-9.0
+Provides:	mvn(org.apache.maven.plugin-testing:maven-plugin-testing-tools) = 2.1
+Provides:	mvn(org.apache.maven.shared:maven-plugin-testing-tools) = 2.1
+Obsoletes:	maven-shared-plugin-testing-tools <= 0:2.1-9.0
 
+%description	-n maven-plugin-testing-tools
+maven-plugin-testing-tools bootstrap version.
+
+%files		-n maven-plugin-testing-tools
+/usr/share/java/maven-plugin-testing/maven-plugin-testing-tools.jar
+/usr/share/maven-effective-poms/JPP.maven-plugin-testing-maven-plugin-testing-tools.pom
+/usr/share/maven-fragments/maven-plugin-testing-maven-plugin-testing-tools.xml
+/usr/share/maven-poms/JPP.maven-plugin-testing-maven-plugin-testing-tools.pom
+
+#------------------------------------------------------------------------
 %prep
-%setup -q
-
-%patch0 -p1
-
-sed -i -e "s/MockControl/IMocksControl/g" maven-test-tools/src/main/java/org/apache/maven/shared/tools/easymock/MockManager.java
 
 %build
-%mvn_alias : org.apache.maven.shared:
-# Tests are skipped due to some test failures most probably caused by issues 
-# with our plexus container
-%mvn_build -f -s -X
 
 %install
-%mvn_install
-
-%files -f .mfiles-%{name}
-%doc LICENSE NOTICE
-%files harness -f .mfiles-%{name}-harness
-%files tools -f .mfiles-%{name}-tools
-%files -n maven-test-tools -f .mfiles-maven-test-tools
-%files javadoc -f .mfiles-javadoc
-%doc LICENSE NOTICE
-
-%changelog
-* Tue Aug 06 2013 Michal Srb <msrb@redhat.com> - 2.1-9
-- Port to Maven 3.1.0 (Resolves: #988253, #991860)
-
-* Thu Jul 25 2013 Alexander Kurtakov <akurtako@redhat.com> 2.1-8
-- Build against easymock3.
-
-* Mon Apr 22 2013 Michal Srb <msrb@redhat.com> - 2.1-7
-- Another rebuild (Fix artifactId=None issue)
-
-* Wed Apr 10 2013 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.1-6
-- Rebuild
-
-* Mon Mar 11 2013 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.1-5
-- Install missing license files
-- Build with xmvn
-- Resolves: rhbz#920258
-
-* Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
-
-* Wed Feb 06 2013 Java SIG <java-devel@lists.fedoraproject.org> - 2.1-3
-- Update for https://fedoraproject.org/wiki/Fedora_19_Maven_Rebuild
-- Replace maven BuildRequires with maven-local
-
-* Wed Jan  9 2013 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.1-2
-- Fix easymock requires
-
-* Mon Jan 07 2013 Tomas Radej <tradej@redhat.com> - 2.1-1
-- Updated to latest upstream version
-- Cleanup - removed patches, old files etc.
-- Added requires to subpackages
-
-* Thu Jul 19 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.0-4.alpha1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
-
-* Fri Jan 13 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.0-3.alpha1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
-
-* Thu Nov 10 2011 Jaromir Capik <jcapik@redhat.com> 2.0-2.alpha1
-- Structuring mess cleanup (depmap fragments split, removing jar duplicities)
-
-* Wed Nov 09 2011 Jaromir Capik <jcapik@redhat.com> 2.0-1.alpha1
-- Update to 2.0-alpha1
-- Spec file changes according to the latest guidelines
-
-* Thu Feb 10 2011 Alexander Kurtakov <akurtako@redhat.com> 1.2-9
-- Fix building.
-- Adapt to current guidelines.
-
-* Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.2-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
-
-* Mon Sep 20 2010 Yong Yang <yyang@redhat.com> 1.1-7
-- Build with plexus-containers 1.5.4
-
-* Mon May 31 2010 Alexander Kurtakov <akurtako@redhat.com> 1.2-6
-- Proper obsolete for maven-shared-test-tools.
-
-* Mon May 31 2010 Alexander Kurtakov <akurtako@redhat.com> 1.2-5
-- One more item to the depmap.
-
-* Mon May 31 2010 Alexander Kurtakov <akurtako@redhat.com> 1.2-4
-- Add depmap to fix build.
-
-* Sat May 29 2010 Alexander Kurtakov <akurtako@redhat.com> 1.2-3
-- Obsolete maven-shared-test-tools.
-
-* Thu May 27 2010 Yong Yang <yyang@redhat.com> 1:1.2-2.8
-- Fix parent pom install
-
-* Thu May 27 2010 Yong Yang <yyang@redhat.com> 1:1.2-2.7
-- Fix installed pom.xml source path
-
-* Thu May 27 2010 Yong Yang <yyang@redhat.com> 1:1.2-2.6
-- Add more maven depmap for maven-test-tools and maven-plugin-testing-tools for backward compatibility 
-
-* Thu May 27 2010 Yong Yang <yyang@redhat.com> 1:1.2-2.5
-- Fix maven-plugin-testing-tools pom name
-
-* Thu May 27 2010 Yong Yang <yyang@redhat.com> 1:1.2-2.4
-- Change JPP.%{name}.%{name}-harness.pom to JPP.%{name}-%{name}-harness.pom
-
-* Thu May 27 2010 Yong Yang <yyang@redhat.com> 1:1.2-2.3
-- Remove epoch in Requires of maven-test-tools
-
-* Wed May 12 2010 Alexander Kurtakov <akurtako@redhat.com> 1:1.2-2
-- Fix line lengths and use macroses consistently.
-- Add comment for the tests skip.
-- Add missing requires and set permissions.
-
-* Wed May 12 2010 Alexander Kurtakov <akurtako@redhat.com> 1:1.2-1
-- Initial package.
+cd %{buildroot}
+rpm2cpio %{SOURCE0} | cpio -id
+rpm2cpio %{SOURCE1} | cpio -id
+rpm2cpio %{SOURCE2} | cpio -id
+rpm2cpio %{SOURCE3} | cpio -id
