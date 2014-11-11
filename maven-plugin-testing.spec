@@ -1,6 +1,6 @@
 %{?_javapackages_macros:%_javapackages_macros}
 Name:           maven-plugin-testing
-Version:        3.2.0
+Version:        3.1.0
 Release:        1%{?dist}
 Summary:        Maven Plugin Testing
 License:        ASL 2.0
