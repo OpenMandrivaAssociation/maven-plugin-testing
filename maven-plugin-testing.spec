@@ -1,12 +1,11 @@
 %{?_javapackages_macros:%_javapackages_macros}
 Name:           maven-plugin-testing
-Version:        2.1
-Release:        9.3%{?dist}
+Version:        3.2.0
+Release:        1%{?dist}
 Summary:        Maven Plugin Testing
 License:        ASL 2.0
 URL:            http://maven.apache.org/plugin-testing/
 Source0:        http://repo1.maven.org/maven2/org/apache/maven/plugin-testing/%{name}/%{version}/%{name}-%{version}-source-release.zip
-Patch0:         0001-Port-to-Maven-3.1.0.patch
 BuildArch: noarch
 
 BuildRequires: easymock3
@@ -32,7 +31,6 @@ API documentation for %{name}.
 
 %package harness
 Summary: Maven Plugin Testing Mechanism
-BuildRequires: maven-surefire-provider-junit4
 Obsoletes: maven-shared-plugin-testing-harness <= 0:1.2
 Provides: maven-shared-plugin-testing-harness = 1:%{version}-%{release}
 
@@ -57,8 +55,7 @@ Framework to test Maven Plugins with Easymock objects.
 
 %prep
 %setup -q
-
-%patch0 -p1
+%pom_remove_plugin :maven-enforcer-plugin
 
 sed -i -e "s/MockControl/IMocksControl/g" maven-test-tools/src/main/java/org/apache/maven/shared/tools/easymock/MockManager.java
 
@@ -72,6 +69,7 @@ sed -i -e "s/MockControl/IMocksControl/g" maven-test-tools/src/main/java/org/apa
 %mvn_install
 
 %files -f .mfiles-%{name}
+%dir %{_javadir}/%{name}
 %doc LICENSE NOTICE
 %files harness -f .mfiles-%{name}-harness
 %files tools -f .mfiles-%{name}-tools
@@ -80,6 +78,27 @@ sed -i -e "s/MockControl/IMocksControl/g" maven-test-tools/src/main/java/org/apa
 %doc LICENSE NOTICE
 
 %changelog
+* Mon Jul 21 2014 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.2.0-1
+- Update to upstream version 3.2.0
+
+* Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 3.1.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
+
+* Mon May 26 2014 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.1.0-3
+- Remove BuildRequires on maven-surefire-provider-junit4
+
+* Tue Mar 04 2014 Stanislav Ochotnicky <sochotnicky@redhat.com> - 3.1.0-2
+- Use Requires: java-headless rebuild (#1067528)
+
+* Mon Feb 24 2014 Michal Srb <msrb@redhat.com> - 3.1.0-1
+- Update to upstream version 3.1.0
+
+* Wed Feb 19 2014 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.0.0-2
+- Fix unowned directory
+
+* Tue Jan 07 2014 Michal Srb <msrb@redhat.com> - 3.0.0-1
+- Update to upstream version 3.0.0
+
 * Tue Aug 06 2013 Michal Srb <msrb@redhat.com> - 2.1-9
 - Port to Maven 3.1.0 (Resolves: #988253, #991860)
 
@@ -172,3 +191,4 @@ sed -i -e "s/MockControl/IMocksControl/g" maven-test-tools/src/main/java/org/apa
 
 * Wed May 12 2010 Alexander Kurtakov <akurtako@redhat.com> 1:1.2-1
 - Initial package.
+
