@@ -55,7 +55,6 @@ Framework to test Maven Plugins with Easymock objects.
 
 %prep
 %setup -q
-%pom_remove_plugin :maven-enforcer-plugin
 
 sed -i -e "s/MockControl/IMocksControl/g" maven-test-tools/src/main/java/org/apache/maven/shared/tools/easymock/MockManager.java
 
