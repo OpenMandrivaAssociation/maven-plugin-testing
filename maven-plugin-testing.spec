@@ -4,7 +4,7 @@ Version:        3.1.0
 Release:        1%{?dist}
 Summary:        Maven Plugin Testing
 License:        ASL 2.0
-URL:            http://maven.apache.org/plugin-testing/
+URL:            https://maven.apache.org/plugin-testing/
 Source0:        http://repo1.maven.org/maven2/org/apache/maven/plugin-testing/%{name}/%{version}/%{name}-%{version}-source-release.zip
 BuildArch: noarch
 
